@@ -18,6 +18,7 @@ jobs:
             ./create.sh
             ./create_inventory.sh
             yum -y install tar
+            yum -y install gzip
       - persist_to_workspace:
           root: test_circleci
           paths:
