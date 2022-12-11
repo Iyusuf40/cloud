@@ -42,7 +42,7 @@ jobs:
             echo "checking if cache is restored"
             pwd
             ls ansible_test
-            cat ansible_test/*
+
   # running a node container
   Using-Node:
     docker:
@@ -71,7 +71,6 @@ jobs:
           command: |
             echo 'The work is now complete.'
             ls ws
-            cat ws/*
 
 workflows:
   Example-Workflow:
