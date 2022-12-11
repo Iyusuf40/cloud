@@ -2,54 +2,6 @@ version: 2.1
 
 jobs:
 
-  # running commands on a basic image
-  Hello-World:
-    parameters:
-      fingerprint:
-        type: string
-        default: d5:ff:ce:90:1f:ba:cd:39:8a:86:5e:77:88:ae:7f:9a
-    docker:
-      - image: cimg/base:2021.04
-
-    steps:
-      - checkout
-      - run:
-          name: Saying Hello
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-            # xeyes
-            echo 'yay! error command commented out'
-            echo << parameters.fingerprint >>
-            mkdir test_cache
-            echo "I am file in test_cache" > test_cache/c_file
-            ls
-      - save_cache:
-          name: testing-cache
-          key: text_files-{{ epoch }}
-          paths:
-            - ansible_test
-  # fetching code from the repo
-  Fetch-Code:
-    docker:
-      - image: cimg/base:2021.04
-
-    steps:
-      - checkout
-      - restore_cache: # remember to use the same image as the one used
-          # used in creating the cache 
-          name: restoring saved cache from Hello-world job
-          keys:
-            - text_files-
-      - run:
-          name: Getting the Code
-          command: |
-            ls -al
-            echo '^^^Your repo files^^^'
-            echo "checking if cache is restored"
-            pwd
-            ls ansible_test
-
   Test_aws_cli:
     docker:
       - image: amazon/aws-cli
@@ -94,14 +46,9 @@ jobs:
 workflows:
   Example-Workflow:
     jobs:
-      - Hello-World
-      - Fetch-Code:
-          requires:
-            - Hello-World
-
       - Test_aws_cli:
           requires:
-            - Using-Node
+            - Hello-World
 
       - Configure-with-ansible:
           requires:
