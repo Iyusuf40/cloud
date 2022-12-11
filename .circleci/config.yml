@@ -1,4 +1,8 @@
 version: 2.1
+parameters:
+  fingerprint:
+    type: string
+    default: d5:ff:ce:90:1f:ba:cd:39:8a:86:5e:77:88:ae:7f:9a
 jobs:
   # running commands on a basic image
   Hello-World:
@@ -14,6 +18,7 @@ jobs:
             echo 'This is the delivery pipeline'
             # xeyes
             echo 'yay! error command commented out'
+            echo << parameters.fingerprint >>
             mkdir test_cache
             echo "I am file in test_cache" > test_cache/c_file
             ls
@@ -71,6 +76,7 @@ jobs:
             # aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             # aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             # aws configure set aws_session_token ""
+            # It works fine
             aws cloudformation describe-stacks --region us-west-2
 
   Now-Complete:
