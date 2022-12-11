@@ -57,8 +57,12 @@ jobs:
       - attach_workspace:
           at: ws
       - run:
-          name: install curl
-          command: yum -y install curl
+          name: install dependencies
+          command: |
+            yum -y install curl
+            yum -y install tar
+            yum -y install gzip
+            
       - run:
           name: Test
           command: |
@@ -66,6 +70,7 @@ jobs:
             res=$(curl -s -I $ip)
             if [ $res ]
             then 
+              echo $res
               exit 0
             else
               exit 1
