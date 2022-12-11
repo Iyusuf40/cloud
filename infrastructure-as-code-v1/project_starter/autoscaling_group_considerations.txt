@@ -1,0 +1,9 @@
+Launch template / config
+
+Target group
+	- required if load balancer will be used
+
+Load balancer
+	- Must use a listener to specify listening rule and associate
+	  lb with target group
+	- can use additional listener rule
