@@ -47,8 +47,6 @@ workflows:
   Example-Workflow:
     jobs:
       - Test_aws_cli:
-
       - Configure-with-ansible:
           requires:
-            # - Hold-for-Approval
             - Test_aws_cli
