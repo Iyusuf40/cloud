@@ -93,11 +93,16 @@ workflows:
       - Using-Node:
           requires:
             - Fetch-Code
+      - Test_aws_cli:
+          requires:
+            - Using-Node
       # - Hold-for-Approval:
       #     type: approval
       #     requires:
       #       - Using-Node
       #       - Fetch-Code
+      #         - Test_aws_cli
       - Now-Complete:
           requires:
-            - Hold-for-Approval
+            # - Hold-for-Approval
+            - Test_aws_cli
