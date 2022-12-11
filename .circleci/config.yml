@@ -49,7 +49,7 @@ jobs:
             ip=$(grep '^[0-9]$*' inventory)
             echo $ip
 
-  Smoke_Test:
+  Smoke-Test:
     docker:
       - image: amazon/aws-cli
     steps:
@@ -65,9 +65,9 @@ jobs:
           ip=$(grep '^[0-9]$*' ws/inventory)
           res=$(curl -s -I $ip)
           if [ $res ]
-            exit 0
+          then exit 0
           else
-            exit 1
+          exit 1
           fi
       
 
