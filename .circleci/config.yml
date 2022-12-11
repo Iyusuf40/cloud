@@ -103,7 +103,7 @@ workflows:
           requires:
             - Using-Node
 
-      - Now-Complete:
+      - Configure-with-ansible:
           requires:
             # - Hold-for-Approval
             - Test_aws_cli
