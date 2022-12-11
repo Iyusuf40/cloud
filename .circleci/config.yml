@@ -49,7 +49,7 @@ jobs:
             ip=$(grep '^[0-9]$*' inventory)
             echo $ip
 
-  Smoke-Test:
+  Smoke_Test:
     docker:
       - image: amazon/aws-cli
     steps:
