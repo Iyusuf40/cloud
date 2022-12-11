@@ -13,7 +13,7 @@ jobs:
             # aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             # aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
             # aws configure set aws_session_token ""
-            # It works fine
+            # It works fine even without mannually setting the aws cli cfg settings
             cd test_circleci
             ./create.sh
             ./create_inventory.sh
