@@ -48,6 +48,7 @@ jobs:
     docker:
       - image: cimg/node:17.2
     steps:
+      - checkout
       - run:
           name: Running the Node Container
           command: |
