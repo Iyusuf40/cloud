@@ -67,7 +67,7 @@ jobs:
           command: |
             ip=$(grep '^[0-9]$*' ws/inventory)
             res=$(curl -s -I $ip)
-            if [ $res ]
+            if [ "$res" ]
             then 
               echo $res
               exit 0
