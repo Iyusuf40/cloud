@@ -49,6 +49,28 @@ jobs:
             ip=$(grep '^[0-9]$*' inventory)
             echo $ip
 
+  Smoke-Test:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ws
+      - run:
+        name: install curl
+        command: yum -y install curl
+      - run:
+        name: Test
+        command: |
+          ip=$(grep '^[0-9]$*' ws/inventory)
+          res=$(curl -s -I $ip)
+          if [ $res ]
+            exit 0
+          else
+            exit 1
+          fi
+      
+
 workflows:
   Example-Workflow:
     jobs:
@@ -56,3 +78,6 @@ workflows:
       - Configure-with-ansible:
           requires:
             - Test_aws_cli
+      - Smoke-Test:
+          requires:
+            - Configure-with-ansible
