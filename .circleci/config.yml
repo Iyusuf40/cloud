@@ -44,7 +44,8 @@ jobs:
           name: Configuartion
           command: |
             cd ws
-            ls
+            cp ws/* test_circleci
+            cd test_circleci
             ansible-playbook ans_main.yaml -i inventory
             ip=$(grep '^[0-9]$*' inventory)
             echo $ip
