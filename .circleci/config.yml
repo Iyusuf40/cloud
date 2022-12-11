@@ -69,9 +69,9 @@ jobs:
 
   Test_aws_cli:
     parameters:
-    fingerprint:
-      type: string
-      default: d5:ff:ce:90:1f:ba:cd:39:8a:86:5e:77:88:ae:7f:9a
+      fingerprint:
+        type: string
+        default: d5:ff:ce:90:1f:ba:cd:39:8a:86:5e:77:88:ae:7f:9a
     docker:
       - image: amazon/aws-cli
     steps:
