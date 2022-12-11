@@ -1,0 +1,19 @@
+Custom VPC:
+	- Must have a route table and route rule to send data out of vpc
+	- can span multiple availability zones
+
+Public subnet:
+	- Must have internet gateway if you want to reach the internet
+	- Can be Limited to 1 availabity zone
+
+Private subnet:
+	- Must have NAT gateway if you want to reach the internet
+	- Can be Limited to 1 availabity zone
+	- should be used to hide servers
+
+Route table:
+	- create and remember to associate with a subnet 
+	  AWS::EC2::SubnetRouteTableAssociation
+	
+Route:
+	- rules to attach to a route table
