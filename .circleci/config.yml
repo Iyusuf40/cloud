@@ -86,9 +86,10 @@ jobs:
             # aws configure set aws_session_token ""
             # It works fine
             cd test_circleci
+            ./create.sh
             ./create_inventory.sh
+            ansible-playbook ans_main.yaml -i inventory
             ip=$(grep '^[0-9]$*' inventory)
-            ssh ubuntu@$ip "ls /var"
             aws cloudformation describe-stacks --region us-west-2
 
   Now-Complete:
