@@ -1,0 +1,9 @@
+Resources:
+  ansibleEc2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: privKey
+      ImageId: ami-0530ca8899fac469f
+      SecurityGroupIds:
+        - sg-0f44fc322b6483de9
