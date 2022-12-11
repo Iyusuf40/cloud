@@ -57,18 +57,19 @@ jobs:
       - attach_workspace:
           at: ws
       - run:
-        name: install curl
-        command: yum -y install curl
+          name: install curl
+          command: yum -y install curl
       - run:
-        name: Test
-        command: |
-          ip=$(grep '^[0-9]$*' ws/inventory)
-          res=$(curl -s -I $ip)
-          if [ $res ]
-          then exit 0
-          else
-          exit 1
-          fi
+          name: Test
+          command: |
+            ip=$(grep '^[0-9]$*' ws/inventory)
+            res=$(curl -s -I $ip)
+            if [ $res ]
+            then 
+              exit 0
+            else
+              exit 1
+            fi
       
 
 workflows:
