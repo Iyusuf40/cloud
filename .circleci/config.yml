@@ -68,6 +68,7 @@ jobs:
       - run:
           name: testing aws cli from circleci
           command: |
+            aws configure set aws_session_token ""
             aws cloudformation describe-stacks --region us-west-2
 
   Now-Complete:
