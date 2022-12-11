@@ -1,8 +1,0 @@
-route tables only defines where to send packets not about reciept
-
-internet gateway sits in a vpc and sends packets out and back into the vpc
-Used with public subnets
-
-NAT receives packets from private subnet and sends them out, retrieves the resp
-and returns it to the initial sender: Translates IP addresses of machines in a
-private subnet
