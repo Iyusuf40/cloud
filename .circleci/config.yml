@@ -16,7 +16,11 @@ jobs:
             # It works fine
             cd test_circleci
             ./create.sh
-
+            ./create_inventory.sh
+      - persist_to_workspace:
+          root: test_circleci
+          paths:
+            - inventory
   Configure-with-ansible:
     parameters:
       fingerprint:
@@ -32,16 +36,16 @@ jobs:
       - run:
           name: install ansible
           command: apk add --update ansible
-      
+      - attach_workspace:
+          at: ws
       - run:
           name: Configuartion
           command: |
-            cd test_circleci
-            ./create_inventory.sh
+            cd ws
+            ls
             ansible-playbook ans_main.yaml -i inventory
             ip=$(grep '^[0-9]$*' inventory)
             echo $ip
-            aws cloudformation describe-stacks --region us-west-2
 
 workflows:
   Example-Workflow:
