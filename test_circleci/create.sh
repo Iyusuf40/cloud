@@ -1,3 +1,3 @@
 #!/bin/bash
-aws cloudformation create-stack --stack-name circlci_stack \
-	--template-body file://ec2.yaml
+aws cloudformation deploy --stack-name circlci-stack \
+	--template-file ec2_test.yaml
