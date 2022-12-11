@@ -1,0 +1,93 @@
+version: 2.1
+jobs:
+  # running commands on a basic image
+  Hello-World:
+    docker:
+      - image: cimg/base:2021.04
+
+    steps:
+      - checkout
+      - run:
+          name: Saying Hello
+          command: |
+            echo 'Hello World!'
+            echo 'This is the delivery pipeline'
+            # xeyes
+            echo 'yay! error command commented out'
+            mkdir test_cache
+            echo "I am file in test_cache" > test_cache/c_file
+            ls
+      - save_cache:
+          name: testing-cache
+          key: text_files-{{ epoch }}
+          paths:
+            - ansible_test
+  # fetching code from the repo
+  Fetch-Code:
+    docker:
+      - image: cimg/base:2021.04
+
+    steps:
+      - checkout
+      - restore_cache: # remember to use the same image as the one used
+          # used in creating the cache 
+          name: restoring saved cache from Hello-world job
+          keys:
+            - text_files-
+      - run:
+          name: Getting the Code
+          command: |
+            ls -al
+            echo '^^^Your repo files^^^'
+            echo "checking if cache is restored"
+            pwd
+            ls ansible_test
+            cat ansible_test/*
+  # running a node container
+  Using-Node:
+    docker:
+      - image: cimg/node:17.2
+    steps:
+      - run:
+          name: Running the Node Container
+          command: |
+            node -v
+            mkdir test_ws
+            echo "test workspace" > test_ws/test.txt
+      - persist_to_workspace:
+          root: ansible_test # directory to use as root of WS
+          paths:
+            - '*' # persist every file in the directory
+
+  Now-Complete:
+    docker:
+      - image: cimg/node:17.2
+
+    steps:
+      - attach_workspace:
+          at: ws # I can access my ws files in this directory.. Created for this purpose
+      - run:
+          name: Approval Complete
+          command: |
+            echo 'The work is now complete.'
+            ls ws
+            cat ws/*
+
+workflows:
+  Example-Workflow:
+    jobs:
+      - Hello-World
+      - Fetch-Code:
+          requires:
+            - Hello-World
+      - Using-Node:
+          requires:
+            - Fetch-Code
+      - Hold-for-Approval:
+          type: approval
+          requires:
+            - Using-Node
+            - Fetch-Code
+      - Now-Complete:
+          requires:
+            - Hold-for-Approval

@@ -1,1 +1,1 @@
-# Exercises on cloud devops
+# Exercises on cloud DevOps
