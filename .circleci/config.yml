@@ -46,7 +46,7 @@ jobs:
 workflows:
   Example-Workflow:
     jobs:
-      - Test_aws_cli:
+      - Test_aws_cli
       - Configure-with-ansible:
           requires:
             - Test_aws_cli
