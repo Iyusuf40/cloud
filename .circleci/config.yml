@@ -17,7 +17,7 @@ jobs:
             cd test_circleci
             ./create.sh
             ./create_inventory.sh
-            apt install tar
+            yum install tar
       - persist_to_workspace:
           root: test_circleci
           paths:
