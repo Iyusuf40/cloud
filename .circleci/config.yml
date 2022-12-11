@@ -47,8 +47,6 @@ workflows:
   Example-Workflow:
     jobs:
       - Test_aws_cli:
-          requires:
-            - Hello-World
 
       - Configure-with-ansible:
           requires:
