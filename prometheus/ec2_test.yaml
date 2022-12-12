@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  PromethEc2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: privKey
+      ImageId: ami-0530ca8899fac469f
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      UserData:  
+        Fn::Base64: !Sub |
+          sudo apt-get update -y
+          sudo apt-get install wget -y
+          wget https://github.com/prometheus/prometheus/releases/download/v2.40.6/prometheus-2.40.6.linux-amd64.tar.gz
+          tar xvfz prometheus-*.tar.gz
+          cd prometheus-*
+          ./prometheus
+
+  InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable SSH access via port 22 and web access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '1'
+          ToPort: '10000'
+          CidrIp: 0.0.0.0/0 
