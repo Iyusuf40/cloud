@@ -1,0 +1,11 @@
+Install by downloading binaries or check the docs
+
+Use exporters such as node exporter to export reports
+to a central node
+
+You can use ec2 discovery service to automatically add ec2 instances
+that are spun up to the already listened for nodes by
+- creating a user that can read ec2 instances
+- install node exporters in new instances
+- configure central node with credentials to poll
+  all ec2 instances

@@ -10,11 +10,12 @@ Resources:
         - !Ref InstanceSecurityGroup
       UserData:  
         Fn::Base64: !Sub |
-          sudo apt-get update -y
-          sudo apt-get install wget -y
+          #!/bin/bash
+          apt-get update -y
+          apt-get install wget -y
           wget https://github.com/prometheus/prometheus/releases/download/v2.40.6/prometheus-2.40.6.linux-amd64.tar.gz
           tar xvfz prometheus-*.tar.gz
-          cd prometheus-*
+          cd prometheus-*4
           ./prometheus
 
   InstanceSecurityGroup:
